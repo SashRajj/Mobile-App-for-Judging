@@ -1,1 +1,0 @@
-# Mobile-App-for-Judging
