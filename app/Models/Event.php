@@ -1,4 +1,7 @@
 <?php
+//irelandoutfitters.com
+//Password: xG7*CK@9ea12!
+//Pin: 020423
 
 namespace App\Models;
 

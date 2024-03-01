@@ -13,8 +13,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::latest()->paginate(5);
-
-        return view('events.index', compact('events'))->with(request()->input('page'));
+        return view('events.index', ['events' => $events])->with(request()->input('page'));
     }
 
     /**
