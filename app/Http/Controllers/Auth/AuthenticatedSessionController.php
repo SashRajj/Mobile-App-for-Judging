@@ -29,7 +29,30 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Redirect based on user's role after login
+        return $this->redirectTo(Auth::user()->role);
+    }
+
+    /**
+     * Determine where to redirect users after login based on their role.
+     *
+     * @param string $role
+     * @return RedirectResponse
+     */
+    protected function redirectTo(string $role): RedirectResponse
+    {
+        switch ($role) {
+            case 'admin':
+                return redirect('/admin/dashboard'); // Adjust the path as needed
+            case 'judge':
+                // Define where to redirect judges if needed
+                return redirect('/judge/dashboard'); // Example path, adjust as needed
+            case 'participant':
+                // Define where to redirect participants if needed
+                return redirect('/participant/dashboard'); // Example path, adjust as needed
+            default:
+                return redirect(RouteServiceProvider::HOME);
+        }
     }
 
     /**

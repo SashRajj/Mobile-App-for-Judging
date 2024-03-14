@@ -28,6 +28,14 @@ class Kernel extends HttpKernel
      *
      * @var array<string, array<int, class-string|string>>
      */
+
+     protected $routeMiddleware = [
+        // Existing middleware aliases...
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        // Add your custom middleware here
+        'checkrole' => \App\Http\Middleware\CheckRole::class,
+    ];
+
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,

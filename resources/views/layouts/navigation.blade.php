@@ -11,7 +11,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    @php
+                    // Determine dashboard route based on user role
+                    $dashboardRoute = match(Auth::user()->role ?? null) {
+                        'admin' => 'admin.dashboard', // Adjust with actual named route for admin dashboard
+                        'judge' => 'judge.dashboard', // Adjust with actual named route for judge dashboard
+                        'participant' => 'participant.dashboard', // Adjust with actual named route for participant dashboard
+                        default => 'dashboard', // Fallback route
+                    };
+                    @endphp
+
+                    <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>

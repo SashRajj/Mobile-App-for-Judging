@@ -37,4 +37,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// In routes/web.php
+
+Route::middleware(['auth', 'checkrole:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard'); // Ensure this view exists
+    })->name('admin.dashboard');
+    // Define more admin routes here
+});
+
+Route::middleware(['auth', 'checkrole:judge'])->group(function () {
+    Route::get('/judge/dashboard', function () {
+        return view('judge.dashboard'); // Ensure this view exists
+    })->name('judge.dashboard');
+    // Define more admin routes here
+});
+
+
 require __DIR__.'/auth.php';
