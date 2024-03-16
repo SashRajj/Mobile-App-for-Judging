@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Judge;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -42,6 +44,25 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
+
+        // Associate the user with the appropriate model based on their role
+        if ($request->role === 'admin') {
+            Admin::create([
+                'user_id' => $user->id,
+                'Name' => $user->name,
+                'Email' => $user->email,
+                'Password' => $user->password,
+                // Other admin fields...
+            ]);
+        } else {
+            Judge::create([
+                'user_id' => $user->id,
+                'Name' => $user->name,
+                'Email' => $user->email,
+                'Password' => $user->password,
+                // Other judge fields...
+            ]);
+        }
 
         event(new Registered($user));
 

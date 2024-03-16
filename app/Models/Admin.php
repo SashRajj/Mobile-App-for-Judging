@@ -1,24 +1,25 @@
 <?php
-//irelandoutfitters.com
-//Password: xG7*CK@9ea12!
-//Pin: 020423
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Admin extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'AdminID',
         'Name',
-        'Description',
-        'StartDate',
-        'EndDate',
+        'Email',
+        'Password',
+        // Other admin fields...
     ];
 
-    protected $primaryKey = 'EventID';
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

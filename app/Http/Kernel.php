@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         // Add your custom middleware here
         'checkrole' => \App\Http\Middleware\CheckRole::class,
+        'admin' => \App\Http\Middleware\Admin\AdminMiddleware::class,
     ];
 
     protected $middlewareGroups = [

@@ -8,7 +8,7 @@
             <h2>Show Event</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('events.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.dashboard') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -17,13 +17,25 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name:</strong>
-            {{ $event->name }}
+            {{ $event->Name }}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
+            <strong>Start Date:</strong>
+            {{ $event->StartDate }}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
+            <strong>End Date:</strong>
+            {{ $event->EndDate }}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Description:</strong>
-            {{ $event->description }}
+            {{ $event->Description }}
         </div>
     </div>
 </div>

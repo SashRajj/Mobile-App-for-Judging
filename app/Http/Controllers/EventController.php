@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Admin;
 
 class EventController extends Controller
 {
@@ -29,18 +31,35 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //validate the request
+        // Validate the request
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'Name' => 'required',
+            'Description' => 'required',
+            'StartDate' => 'required|date',
+            'EndDate' => 'required|date|after_or_equal:StartDate',
         ]);
-
-        //create new Event
-        Event::create($request->all());
-
-        //give a friendly message
-        return redirect()->route('events.index')->with('success', 'Event created successfully');
+    
+        $user = Auth::user();
+    
+        // Find the corresponding admin based on the user's ID
+        $admin = Admin::where('user_id', $user->id)->first();
+        // Get the ID of the logged-in admin user
+        $adminId = $admin->AdminID;
+    
+        // Create new Event with AdminID set
+        Event::create([
+            'AdminID' => $adminId,
+            'Name' => $request->input('Name'),
+            'Description' => $request->input('Description'),
+            'StartDate' => $request->input('StartDate'),
+            'EndDate' => $request->input('EndDate'),
+        ]);
+    
+        // Give a friendly message
+        return redirect()->route('admin.dashboard')->with('success', 'Event created successfully');
     }
+    
+
 
     /**
      * Display the specified resource.
@@ -63,17 +82,19 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //validate the request
+        // Validate the request
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'Name' => 'required',
+            'Description' => 'required',
+            'StartDate' => 'required|date',
+            'EndDate' => 'required|date|after_or_equal:StartDate',
         ]);
 
-        //update the Event
+        // Update the Event
         $event->update($request->all());
 
-        //give a friendly message
-        return redirect()->route('events.index')->with('success', 'Event updated successfully');
+        // Give a friendly message
+        return redirect()->route('admin.dashboard')->with('success', 'Event updated successfully');
     }
 
     /**
@@ -81,10 +102,10 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //delete the Event
+        // Delete the Event
         $event->delete();
 
-        //redirect and give a friendly message
-        return redirect()->route('events.index')->with('success', 'Event deleted successfully');
+        // Redirect and give a friendly message
+        return redirect()->route('admin.dashboard')->with('success', 'Event deleted successfully');
     }
 }

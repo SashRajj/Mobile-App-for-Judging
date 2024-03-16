@@ -34,6 +34,17 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
+
+    // Define the relationship with Judges
+    public function judge()
+    {
+        return $this->hasOne(Judge::class);
+    }
+
     /**
      * The attributes that should be cast.
      *
