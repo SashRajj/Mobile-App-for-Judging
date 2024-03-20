@@ -28,6 +28,13 @@ Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('even
 Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
+Route::get('/events/{event}/groups/{group}', [EventController::class, 'showGroups'])->name('events.groups.show');
+Route::get('/events/groups/create/{id}', [EventController::class, 'createGroups'])->name('events.groups.create');
+Route::post('/events/{event}/groups', [EventController::class, 'storeGroups'])->name('events.groups.store');
+Route::get('/events/{event}/groups/{group}/edit', [EventController::class, 'editGroups'])->name('events.groups.edit');
+Route::put('/events/{event}/groups/{group}', [EventController::class, 'updateGroups'])->name('events.groups.update');
+Route::delete('/events/{event}/groups/{group}', [EventController::class, 'destroyGroups'])->name('events.groups.destroy');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

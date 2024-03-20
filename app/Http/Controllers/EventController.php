@@ -6,6 +6,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use App\Models\Group;
+use App\Models\Project;
 
 class EventController extends Controller
 {
@@ -66,7 +68,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('events.show', compact('event'));
+        $groups = $event->groups;
+        return view('events.show', compact('event', 'groups'));
     }
 
     /**
@@ -107,5 +110,96 @@ class EventController extends Controller
 
         // Redirect and give a friendly message
         return redirect()->route('admin.dashboard')->with('success', 'Event deleted successfully');
+    }
+
+    //###########Group Management################
+
+    public function createGroups(int $event)
+    {
+        $event = Event::findOrFail($event);
+        return view('events.groups.create', compact('event'));
+
+    }
+
+    public function storeGroups(Request $request, Event $event)
+{
+    // Validate the incoming request data
+    $request->validate([
+        'Name' => 'required',
+        'Title' => 'required',
+        'Description' => 'required',
+        'SubmissionLink' => 'required',
+    ]);
+
+    // Create a new project instance
+    $project = new Project([
+        'EventID' => $event->EventID, // Assign the EventID as the foreign key
+        'Title' => $request->input('Title'),
+        'Description' => $request->input('Description'),
+        'SubmissionLink' => $request->input('SubmissionLink'),
+        // Add other attributes if necessary
+    ]);
+
+    // Save the project to the database
+    $project->save();
+
+    // Create a new group instance
+    $group = new Group([
+        'Name' => $request->input('Name'),
+        'ProjectID' => $project->ProjectID, // Assign the ProjectID as the foreign key
+        'EventID' => $event->EventID,
+        
+        // Add other attributes if necessary
+    ]);
+
+    $group->save();
+
+    // Save the group to the database
+    $event->groups()->save($group);
+
+    // Redirect back to the event show page with a success message
+    return redirect()->route('events.show', $event->EventID)->with('success', 'Group created successfully.');
+}
+
+    public function editGroups(Event $event, Group $group)
+    {
+        return view('events.groups.edit', compact('event', 'group'));
+    }
+
+    public function updateGroups(Request $request, Event $event, Group $group)
+    {
+        // Add validation if necessary
+        $request->validate([
+            'Name' => 'required',
+            'Title' => 'required',
+            'Description' => 'required',
+            'SubmissionLink' => 'required',
+        ]);
+
+        // Update the project
+        $project = $group->project;
+        $project->update([
+            'Title' => $request->input('Title'),
+            'Description' => $request->input('Description'),
+            'SubmissionLink' => $request->input('SubmissionLink'),
+        ]);
+
+        $group->update([
+            'Name' => $request->input('Name'),
+        ]);
+
+        return redirect()->route('events.show', $event->EventID)->with('success', 'Group updated successfully.');
+    }
+
+    public function showGroups(Event $event, Group $group)
+    {
+        return view('events.groups.show', compact('event', 'group'));
+    }
+
+    public function destroyGroups(Event $event, Group $group)
+    {
+        $group->delete();
+
+        return redirect()->route('events.show', $event->EventID)->with('success', 'Group deleted successfully.');
     }
 }

@@ -21,4 +21,10 @@ class Event extends Model
     ];
 
     protected $primaryKey = 'EventID';
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class, 'EventID');
+    }
+
 }
