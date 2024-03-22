@@ -30,4 +30,5 @@ class JudgeController extends Controller
 
         return view('judge.dashboard', ['events' => $events]);
     }
+    //add functionality
 }
