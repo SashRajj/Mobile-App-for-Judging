@@ -19,6 +19,11 @@ class Group extends Model
     public function project()
     {
         return $this->belongsTo(Project::class, 'ProjectID');
-    }        
+    }
+    
+    public function participants()
+    {
+        return $this->hasMany(Participant::class, 'GroupID', 'GroupID');
+    }
 
 }

@@ -24,6 +24,20 @@
                     <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Check if current route is show event page -->
+                    @if(Route::is('events.show') || Route::is('events.gradingcriteria') || Route::is('events.judges.show') || Route::is('events.participants.show'))
+                        <x-nav-link :href="route('events.gradingcriteria', $event->EventID)" :active="request()->routeIs('events.gradingcriteria', $event->EventID)">
+                            {{ __('Grading Criteria') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('events.judges.show', $event->EventID)" :active="request()->routeIs('events.judges.show', $event->EventID)">
+                            {{ __('Judges') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('events.participants.show', $event->EventID)" :active="request()->routeIs('events.participants.show', $event->EventID)">
+                            {{ __('Participants') }}
+                        </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 

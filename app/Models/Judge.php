@@ -9,6 +9,8 @@ class Judge extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'JudgeID';
+
     protected $fillable = [
         'user_id',
         'Name',
@@ -20,5 +22,10 @@ class Judge extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(EventJudge::class, 'JudgeID', 'JudgeID');
     }
 }
