@@ -38,13 +38,9 @@
                                         <div class="dropdown">
                                             
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="{{ route('events.edit', $event->EventID) }}">Edit</a>
-                                                <a class="dropdown-item" href="{{ route('events.show', $event->EventID) }}">Show</a>
-                                                <form action="{{ route('events.destroy', $event->EventID) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete this event?')">Delete</button>
-                                                </form>
+                                                <a class="dropdown-item" href="{{ route('judge.show', $event->EventID) }}">Show</a>
+                                                {{-- <a class="dropdown-item" href="{{ route('judge.show', $event->EventID) }}">Show</a> --}}
+                                                {{-- <a class="dropdown-item" href="{{ route('judges.show', ['judge' => $judge->id]) }}">Show Judge</a> --}}
                                             </div>
                                         </div>
                                     </td>

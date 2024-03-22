@@ -26,6 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//show/view things Admin
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
@@ -33,7 +34,6 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.sh
 Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
 Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
-
 
 //Grading Criteria routes
 Route::get('/events/gradingcriteria/{id}', [GradingCriteriaController::class, 'show'])->name('events.gradingcriteria');
@@ -91,10 +91,16 @@ Route::middleware(['auth', 'checkrole:judge'])->group(function () {
     // Define more admin routes here
 });
 
+//judge routes
 Route::middleware(['auth', 'judge'])->prefix('judge')->group(function () {
     Route::get('/dashboard', [JudgeController::class, 'index'])->name('judge.dashboard');
     // Define other admin routes here
 });
+
+//judgge show view things
+Route::get('/judge/{event}', [JudgeController::class, 'show'])->name('judge.show');
+//Group routes
+Route::get('/judge/{event}/groups/{group}', [JudgeController::class, 'showGroups'])->name('judge.groups.show');
 
 
 require __DIR__.'/auth.php';
