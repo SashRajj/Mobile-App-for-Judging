@@ -1,5 +1,17 @@
 <!-- dashboard.blade.php -->
 
+<!-- 
+
+    This is the Admin Dashboard Page. It displays:
+        -   Event List
+        -   Create Event Button
+        -   Event Name
+        -   Start and End Date
+        -   Event Actions (Edit, Show, Delete)
+
+-->
+
+<!-- Page Header -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -13,6 +25,7 @@
     </script>
     
 
+<!-- Event List, Create New Event Button-->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -26,6 +39,8 @@
                         @if($events->isEmpty())
                         <p class="text-center">No events available! Please create a new event.</p>
                         @else
+
+    <!-- Event List Table - Header -->
                         <table class="table-auto w-full">
                             <thead>
                                 <tr>
@@ -35,6 +50,8 @@
                                     <th class="px-4 py-2">Actions</th>
                                 </tr>
                             </thead>
+
+    <!-- Event List Table - Header -->
                             <tbody>
                                 @foreach($events as $event)
                                 <tr>
@@ -42,7 +59,8 @@
                                     <td class="border px-4 py-2">{{ $event->StartDate }}</td>
                                     <td class="border px-4 py-2">{{ $event->EndDate }}</td>
                                     <td class="border px-4 py-2">
-                                        <!-- Action buttons with dropdown menu -->
+
+    <!-- Action buttons with dropdown menu -->
                                         <div class="dropdown">
                                             
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
