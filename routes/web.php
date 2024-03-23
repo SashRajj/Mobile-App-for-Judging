@@ -101,6 +101,6 @@ Route::middleware(['auth', 'judge'])->prefix('judge')->group(function () {
 Route::get('/judge/{event}', [JudgeController::class, 'show'])->name('judge.show');
 //Group routes
 Route::get('/judge/{event}/groups/{group}', [JudgeController::class, 'showGroups'])->name('judge.groups.show');
-
+Route::get('/judge/gradingcriteria/{id}', [JudgeController::class, 'showGradingCriteria'])->name('judge.gradingcriteria');
 
 require __DIR__.'/auth.php';

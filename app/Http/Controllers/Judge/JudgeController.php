@@ -9,6 +9,7 @@ use App\Models\Judge;
 use App\Models\EventJudge;
 use App\Models\Event;
 use App\Models\Group;
+use App\Models\GradingCriteria;
 
 class JudgeController extends Controller
 {
@@ -32,7 +33,14 @@ class JudgeController extends Controller
         return view('judge.dashboard', ['events' => $events]);
     }
     //add functionality
+    public function showGradingCriteria($eventID)
+    {
+        // You can pass any necessary data to the view here
 
+        $event = Event::findOrFail($eventID);
+        $gradingCriteria = GradingCriteria::where('EventID', $eventID)->get();
+        return view('judge.gradingcriteria', compact('event', 'gradingCriteria'));
+    }
    
     public function show(Event $event)
     {
