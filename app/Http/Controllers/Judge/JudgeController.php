@@ -10,6 +10,7 @@ use App\Models\EventJudge;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\GradingCriteria;
+use App\Models\Score;
 
 class JudgeController extends Controller
 {
@@ -63,8 +64,43 @@ class JudgeController extends Controller
     }
 
     //shows all groups
-    public function showGroups(Event $event, Group $group)
+    public function showGroups($eventID, $groupID)
     {
-        return view('judge.groups.show', compact('event', 'group'));
+        $event = Event::findOrFail($eventID);
+        $group = Group::findOrFail($groupID);
+        $gradingCriteria = GradingCriteria::where('EventID', $eventID)->get();
+        return view('judge.groups.show', compact('event', 'group', 'gradingCriteria'));
+    }
+
+    public function storeScores(Request $request, $eventID, $groupID){
+
+        // Get the logged-in user
+        $user = Auth::user();
+        // Find the corresponding admin based on the user's ID
+        $judge = Judge::where('user_id', $user->id)->first();
+
+        $judgeID = $judge->JudgeID;
+
+        $event = Event::findOrFail($eventID);
+        $group = Group::findOrFail($groupID);
+
+        $eventJudge = EventJudge::where('EventID', $eventID)
+        ->where('GroupID', $groupID)
+        ->where('JudgeID', $judgeID)
+        ->first(); // Retrieve the actual model instance
+    
+    // Check if eventJudge exists
+    if ($eventJudge) {
+        $eventJudgeID = $eventJudge->EventJudgeID;}
+
+        foreach ($request->scores as $gradingCriteriaID => $givenScore) {
+            Score::create([
+                'GradingCriteriaID' => $gradingCriteriaID,
+                'EventJudgeID' => $eventJudgeID,
+                'GivenScore' => $givenScore
+            ]);
+        }
+
+        return redirect()->route('judge.show', ['event' => $event, 'group' => $group])->with('success', 'Score updated successfully.');
     }
 }

@@ -38,12 +38,6 @@
                         </x-nav-link>
                     @endif
 
-                    @if(Route::is('judge.show') || Route::is('judge.gradingcriteria'))
-                        <x-nav-link :href="route('judge.gradingcriteria', $event->EventID)" :active="request()->routeIs('judge.gradingcriteria', $event->EventID)">
-                            {{ __('Grading Criteria') }}
-                        </x-nav-link>
-                    @endif
-
                 </div>
             </div>
 

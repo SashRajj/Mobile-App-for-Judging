@@ -1,4 +1,4 @@
-shows the event details on admin main page -> show
+
 {{-- @extends('events.layout') --}}
 @extends('judge.layout')
 

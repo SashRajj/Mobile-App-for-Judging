@@ -16,13 +16,13 @@ class CreateScoresTable extends Migration
         Schema::create('scores', function (Blueprint $table) {
             $table->id('ScoreID');
             $table->unsignedBigInteger('GradingCriteriaID');
-            $table->unsignedBigInteger('JudgeGroupID');
+            $table->unsignedBigInteger('EventJudgeID');
             $table->integer('GivenScore');
             $table->timestamps();
 
             // Foreign key constraints
             $table->foreign('GradingCriteriaID')->references('GradingCriteriaID')->on('grading_criteria')->onDelete('cascade');
-            $table->foreign('JudgeGroupID')->references('JudgeGroupID')->on('judge_groups')->onDelete('cascade');
+            $table->foreign('EventJudgeID')->references('EventJudgeID')->on('event_judges')->onDelete('cascade');
         });
     }
 
