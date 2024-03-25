@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="row">
+<div class="row text-gray-800 dark:text-gray-200">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Edit Event</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.dashboard') }}"> Back</a>
+            <x-primary-button href="{{ route('admin.dashboard') }}">{{ __('Back') }}</x-primary-button>
         </div>
     </div>
 </div>
@@ -28,33 +28,33 @@
     @csrf
     @method('PUT')
 
-    <div class="row">
+    <div class="row text-gray-800 dark:text-gray-200">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="Name" class="form-control" placeholder="Name">
+                <input type="text" name="Name" value="{{ $event->Name }}"class="form-control" placeholder="Name">
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6"> {{-- Adjust column sizes as needed --}}
             <div class="form-group">
                 <strong>Start Date:</strong>
-                <input type="text" name="StartDate" id="StartDate" class="form-control datepicker" placeholder="Start Date">
+                <input type="text" name="StartDate" value="{{ $event->StartDate }}" class="form-control datepicker" placeholder="Start Date">
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6"> {{-- Adjust column sizes as needed --}}
             <div class="form-group">
                 <strong>End Date:</strong>
-                <input type="text" name="EndDate" id="EndDate" class="form-control datepicker" placeholder="End Date">
+                <input type="text" name="EndDate" value="{{ $event->EndDate }}" class="form-control datepicker" placeholder="End Date">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                <textarea class="form-control" style="height:150px" name="Description" placeholder="Description"></textarea>
+                <textarea class="form-control" style="height:150px" name="Description" placeholder="Description">{{ $event->Description }}</textarea>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <x-primary-button type="submit">{{ __('Submit') }}</x-primary-button>
         </div>
     </div>
 

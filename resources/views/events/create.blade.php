@@ -2,13 +2,14 @@
 
 @section('content')
 
-<div class="row">
+<div class="row text-gray-800 dark:text-gray-200">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Add New Event</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.dashboard') }}"> Back</a>
+            <x-primary-button href="{{ route('admin.dashboard') }}">{{ __('Back') }}</x-primary-button>
+
         </div>
     </div>
 </div>
@@ -26,7 +27,7 @@
 
 <form action="{{ route('events.store') }}" method="POST">
     @csrf   
-    <div class="row">
+    <div class="row text-gray-800 dark:text-gray-200">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
@@ -52,7 +53,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <x-primary-button type="submit">{{ __('Submit') }}</x-primary-button>
         </div>
     </div>
 </form>

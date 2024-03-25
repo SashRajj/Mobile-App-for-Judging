@@ -4,21 +4,20 @@
 
 @section('content')
 
-<div class="row">
+<div class="row text-gray-800 dark:text-gray-200">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Create New Group</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('events.show', $event->EventID) }}"> Back</a>
+            <x-primary-button href="{{ route('events.show', $event->EventID) }}">{{ __('Back') }}</x-primary-button>
         </div>
     </div>
 </div>
 
 <form action="{{ route('events.groups.store', $event->EventID) }}" method="POST">
     @csrf
-
-    <div class="row">
+    <div class="row text-gray-800 dark:text-gray-200">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Group Name:</strong>
@@ -45,7 +44,7 @@
         </div>
         <!-- Add other form fields as necessary -->
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <x-primary-button type="submit">{{ __('Submit') }}</x-primary-button>
         </div>
     </div>
 </form>
